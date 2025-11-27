@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { RouterLink } from 'vue-router'
 
 const isMobileMenuOpen = ref(false)
 const isDropdownOpen = ref(false)
@@ -14,93 +15,95 @@ const toggleDropdown = () => {
 </script>
 
 <template>
-  <nav class="bg-white shadow-md fixed w-full z-50">
-    <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+  <nav class="bg-gray-600 text-white">
+    <div class="mx-auto px-10 flex justify-between items-center" style="height: 90px;">
       
       <!-- Logo -->
-      <div class="text-2xl font-bold text-gray-800">
-        <a href="#">JustifyShop</a>
+      <div>
+      <RouterLink to="/">
+        <img src="../assets/justifylogo.png" class="object-contain h-40 w-auto mt-3 ml-20 sm:ml-60" />
+      </RouterLink>
       </div>
 
       <!-- Desktop Menu -->
-      <ul class="hidden md:flex items-center space-x-6">
-        
-        <!-- Kategoriler Dropdown -->
+      <ul class="hidden md:flex space-x-8 text-lg items-center">
+
+        <li><RouterLink to="/" class="hover:text-gray-200">Anasayfa</RouterLink></li>
+
+        <!-- DROPDOWN -->
         <li class="relative">
-          <button @click="toggleDropdown" class="flex items-center gap-1 hover:text-blue-600">
+          <button @click="toggleDropdown" class="hover:text-gray-200 flex items-center gap-1">
             Kategoriler
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2"
+                 viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" 
+                    d="M19 9l-7 7-7-7" />
             </svg>
           </button>
 
-          <ul
-            v-show="isDropdownOpen"
-            class="absolute left-0 mt-2 w-40 bg-white shadow-lg rounded-md py-2"
+          <!-- Dropdown Menu -->
+          <div
+            v-if="isDropdownOpen"
+            class="absolute left-0 mt-2 w-48 bg-white text-black rounded-lg shadow-lg overflow-hidden z-50"
           >
-            <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Erkek Giyim</a></li>
-            <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Kadın Giyim</a></li>
-            <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Ayakkabı</a></li>
-            <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Aksesuar</a></li>
-            <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Çocuk Giyim</a></li>
-          </ul>
+            <a href="#" class="block px-4 py-2 hover:bg-gray-100">Erkek Giyim</a>
+            <a href="#" class="block px-4 py-2 hover:bg-gray-100">Kadın Giyim</a>
+            <a href="#" class="block px-4 py-2 hover:bg-gray-100">Ayakkabı</a>
+            <a href="#" class="block px-4 py-2 hover:bg-gray-100">Aksesuar</a>
+            <a href="#" class="block px-4 py-2 hover:bg-gray-100">Çocuk Giyim</a>
+
+          </div>
         </li>
 
-        <li><a href="#" class="hover:text-blue-600">Hakkımızda</a></li>
-        <li><a href="#" class="hover:text-blue-600">İletişim</a></li>
-        <li><a href="#" class="hover:text-blue-600">Sepetim</a></li>
-        <li><a href="#" class="hover:text-blue-600">Kayıt Ol</a></li>
+        <li><a href="#" class="hover:text-gray-200">Hakkımızda</a></li>
+        <li><a href="#" class="hover:text-gray-200">İletişim</a></li>
       </ul>
 
       <!-- Mobile Menu Button -->
-      <button @click="toggleMobileMenu" class="md:hidden text-gray-700 focus:outline-none">
-        <svg v-if="!isMobileMenuOpen" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+      <button @click="toggleMobileMenu" class="md:hidden">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none"
              viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M4 6h16M4 12h16M4 18h16"/>
-        </svg>
-
-        <svg v-else xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-             viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M6 18L18 6M6 6l12 12"/>
+                d="M4 6h16M4 12h16M4 18h16" />
         </svg>
       </button>
     </div>
 
     <!-- Mobile Menu -->
-    <div v-show="isMobileMenuOpen" class="md:hidden bg-white shadow-md">
-      <ul class="flex flex-col px-4 py-2 space-y-2">
-        
-        <!-- Mobil Dropdown -->
+    <div v-if="isMobileMenuOpen" class="md:hidden bg-gray-700 px-4 pb-4">
+
+      <ul class="space-y-3 text-lg">
+
+        <li><RouterLink to="/" class="block py-2 hover:text-gray-200">Anasayfa</RouterLink></li>
+
+        <!-- Mobile Dropdown -->
         <li>
-          <button @click="toggleDropdown" class="flex items-center gap-1 w-full">
+          <button @click="toggleDropdown" class="w-full text-left py-2 flex justify-between">
             Kategoriler
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2"
+                 viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" 
+                    d="M19 9l-7 7-7-7" />
             </svg>
           </button>
 
-          <ul v-show="isDropdownOpen" class="pl-4 mt-1 space-y-1">
-            <li><a href="#" class="block px-2 py-1 hover:bg-gray-100 rounded">Erkek Giyim</a></li>
-            <li><a href="#" class="block px-2 py-1 hover:bg-gray-100 rounded">Kadın Giyim</a></li>
-            <li><a href="#" class="block px-2 py-1 hover:bg-gray-100 rounded">Ayakkabı</a></li>
-            <li><a href="#" class="block px-2 py-1 hover:bg-gray-100 rounded">Aksesuar</a></li>
-            <li><a href="#" class="block px-2 py-1 hover:bg-gray-100 rounded">Çocuk Giyim</a></li>
-          </ul>
+          <div v-if="isDropdownOpen" class="bg-gray-800 rounded px-2 py-2">
+            <a href="#" class="block py-2 pl-4 hover:text-gray-200">Erkek Giyim</a>
+            <a href="#" class="block py-2 pl-4 hover:text-gray-200">Kadın Giyim</a>
+            <a href="#" class="block py-2 pl-4 hover:text-gray-200">Aksesuar</a>
+            <a href="#" class="block py-2 pl-4 hover:text-gray-200">Ayakkabı</a>
+            <a href="#" class="block py-2 pl-4 hover:text-gray-200">Çocuk Giyim</a>
+          </div>
         </li>
 
-        <li><a href="#" class="block px-2 py-1 hover:bg-gray-100 rounded">Hakkımızda</a></li>
-        <li><a href="#" class="block px-2 py-1 hover:bg-gray-100 rounded">İletişim</a></li>
-        <li><a href="#" class="block px-2 py-1 hover:bg-gray-100 rounded">Sepetim</a></li>
-        <li><a href="#" class="block px-2 py-1 hover:bg-gray-100 rounded">Kayıt Ol</a></li>
+        <li><a href="#" class="block py-2 hover:text-gray-200">Hakkımızda</a></li>
+        <li><a href="#" class="block py-2 hover:text-gray-200">İletişim</a></li>
+
       </ul>
+
     </div>
   </nav>
 </template>
 
 <style scoped>
-ul[v-show] {
-  transition: all 0.2s ease-in-out;
-}
 </style>

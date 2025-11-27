@@ -1,6 +1,7 @@
 <template>
   <Navbar />
-  <div class="pt-20 min-h-screen">
+  <div class="pt-15 min-h-screen">
+    <router-view />
   </div>
   <Footer />
 </template>
